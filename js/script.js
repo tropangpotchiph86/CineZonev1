@@ -32,17 +32,27 @@ function highlighActiveLink() {
   });
 }
 
+function showSpinner() {
+  document.querySelector('.spinner').classList.add('show');
+}
+
+function hideSpinner() {
+  document.querySelector('.spinner').classList.remove('show');
+}
+
 //Fetch data from the API
 async function fetchAPIData(endpoint) {
   const API_KEY = 'e76d2381f0382657b3c2960253bbd771';
   const API_URL = 'https://api.themoviedb.org/3/';
 
+  showSpinner();
   const response = await fetch(
     `${API_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
   );
 
   const data = await response.json();
 
+  hideSpinner();
   return data;
 }
 
@@ -58,6 +68,7 @@ async function displayPopularMovies() {
     
           <a href="movie-details.html?id=${movie.id}">
 
+          
           ${
             movie.poster_path
               ? `<img
